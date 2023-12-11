@@ -1,20 +1,14 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class ChildAvatarAppearanceController : MonoBehaviour 
 {
     private UserPrefs userPrefs;
-    private GameController gameController;
-    private SceneController sceneController;
     private TMPro.TMP_Dropdown dropdown;
     private TMPro.TMP_Text captionText;
     public GameObject TKBoyA, TKBoyB, TKBoyC, TKBoyD;
     void Start()
     {
         userPrefs = GameObject.Find("UserPrefs").GetComponent<UserPrefs>();
-        gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
         dropdown = GameObject.Find("ChildAvatarDropdown").GetComponent<TMPro.TMP_Dropdown>();
     }
 

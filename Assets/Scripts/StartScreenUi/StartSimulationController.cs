@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 /// <summary>
 /// The StartSimulationController class is responsible for managing the start simulation screen.
 /// </summary>
@@ -16,8 +15,6 @@ public class StartSimulationController : MonoBehaviour
     }
 
     public void StartSimulation() {
-        //sceneController.LoadScene(Enums.SceneNames.ChildScene); load child scene after viewing tutorial video
-        //SceneManager.LoadScene(Enums.SceneNames.TutorialScene.ToString(), LoadSceneMode.Additive);
         if(userPrefs.IsEnglishSpeaker())
             sceneController.LoadScene(Enums.SceneNames.TutorialScene);
         else
