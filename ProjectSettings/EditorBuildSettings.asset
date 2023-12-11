@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/GlobalScene.unity
+    guid: a4b6e2c7c9cf844beb133b5a0bacb2ab
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: 039d2c350f4e74af6a5c39ab5bed2143
+  - enabled: 1
+    path: Assets/Scenes/ChildScene.unity
+    guid: 8f5418dd576ef42e39bcf7820f41d234
+  - enabled: 1
+    path: Assets/Scenes/DoctorScene.unity
+    guid: f9a635668528e45e4ab48c0585c82d59
+  - enabled: 0
+    path: Assets/Scenes/HomeScene.unity
+    guid: 8b8eb5a60fd7f4495821c01f40df5f12
+  - enabled: 0
+    path: Assets/Scenes/EndScene.unity
+    guid: 49f0736b044044b489dc97c6ae7912f7
+  - enabled: 0
+    path: Assets/Scenes/BoySceneA.unity
+    guid: 3f090f733d44b407badfc8a85d0dec99
+  - enabled: 0
+    path: Assets/Scenes/BoySceneB.unity
+    guid: 7c7b97698cb4245f386167f05bb02404
+  - enabled: 1
+    path: Assets/Scenes/EndSceneLose.unity
+    guid: 4d8cbe55f772e4c339385cdb8ee39044
+  - enabled: 1
+    path: Assets/Scenes/EndSceneWin.unity
+    guid: 1bed05ebe07134c1d885c8fc362610d4
+  - enabled: 1
+    path: Assets/Scenes/SchoolScene.unity
+    guid: 3a36ef97805514315b29e6e3f5c9d22b
+  - enabled: 1
+    path: Assets/Scenes/TutorialScene.unity
+    guid: 56863e94e97101643b8e857fc960e8c7
+  - enabled: 1
+    path: Assets/Scenes/TutorialSceneSpanish.unity
+    guid: edc191c5edcd1c44ea49cde64086dc95
+  - enabled: 1
+    path: Assets/Scenes/EndSceneLoseSpanish.unity
+    guid: dcfc48aa1314c82449eeba94a9dc2d20
+  - enabled: 1
+    path: Assets/Scenes/EndSceneWinSpanish.unity
+    guid: d2b59550338c13449808ff1bda044c24
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
+    Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 9bec1ce6a03ccba4b9a8215241b32e63, type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: a49cadc1a815591479693b955ccf08c1, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 1a4c68ca72a83449f938d669337cb305, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: a9a6963505ddf7f4d886008c6dc86122, type: 2}

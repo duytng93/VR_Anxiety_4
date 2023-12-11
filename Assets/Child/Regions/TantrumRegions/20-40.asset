@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbb9506fc36991440b804471a5e5ae4a, type: 3}
+  m_Name: 20-40
+  m_EditorClassIdentifier: 
+  activatePercentageLoBound: 20
+  activatePercentageHiBound: 40
+  barColor: {r: 1, g: 0.9863347, b: 0, a: 1}
+  validBehaviors:
+  - state: 7
+    probability: 50
+  - state: 3
+    probability: 50
+  utterances:
+  - {fileID: 8300000, guid: 0f27f59afbf461c488b743df92864ff3, type: 3}
+  - {fileID: 8300000, guid: 8a0f9b6ad4993b14d95efa8938ba45a0, type: 3}
+  - {fileID: 8300000, guid: 929e29084b9f7704e8889b4b98d99b4d, type: 3}

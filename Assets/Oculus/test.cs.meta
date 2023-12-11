@@ -1,0 +1,61 @@
+fileFormatVersion: 2
+guid: 45417661c38e341dea8f452e31c458a4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - childState: {instanceID: 0}
+  - walkRunAudioSource: {instanceID: 0}
+  - mainCamera: {instanceID: 0}
+  - startVoice: {instanceID: 0}
+  - level2Cry1: {instanceID: 0}
+  - level2Cry2: {instanceID: 0}
+  - level2Cry3: {instanceID: 0}
+  - level3Cry1: {instanceID: 0}
+  - level3Cry2: {instanceID: 0}
+  - level3Cry3: {instanceID: 0}
+  - level4Cry1: {instanceID: 0}
+  - level4Cry2: {instanceID: 0}
+  - level4Cry3: {instanceID: 0}
+  - level5Cry1: {instanceID: 0}
+  - level5Cry2: {instanceID: 0}
+  - level5Cry3: {instanceID: 0}
+  - bodyFalling: {instanceID: 0}
+  - bodyFallingWithCrying: {instanceID: 0}
+  - fallCry: {instanceID: 0}
+  - level4Angry1: {instanceID: 0}
+  - level4Angry2: {instanceID: 0}
+  - level5Angry1: {instanceID: 0}
+  - level5Angry2: {instanceID: 0}
+  - mixLevel4Angry1: {instanceID: 0}
+  - mixLevel4Angry2: {instanceID: 0}
+  - mixLevel5Angry1: {instanceID: 0}
+  - mixLevel5Angry2: {instanceID: 0}
+  - level4Sad1: {instanceID: 0}
+  - level4Sad2: {instanceID: 0}
+  - level5Sad1: {instanceID: 0}
+  - level5Sad2: {instanceID: 0}
+  - walkAudio: {instanceID: 0}
+  - runAudio: {instanceID: 0}
+  - pausedAudio: {instanceID: 0}
+  - canIPlayWithYourPhone: {instanceID: 0}
+  - canIWatchPawPatrol: {instanceID: 0}
+  - doYouWantToPlayWithMe: {instanceID: 0}
+  - giveToMeNow: {instanceID: 0}
+  - iAmGoingToBiteYou: {instanceID: 0}
+  - iAmGoingToHateYou: {instanceID: 0}
+  - iDontCare: {instanceID: 0}
+  - iHateYou: {instanceID: 0}
+  - iAmGettingMad: {instanceID: 0}
+  - itsMyTurn: {instanceID: 0}
+  - notRightNowImUsingIt: {instanceID: 0}
+  - notRightNowPleaseWaitUntilImDoneUsingIt: {instanceID: 0}
+  - youAreTheWorst: {instanceID: 0}
+  - whatIsThat: {fileID: 8300000, guid: f5d8540d05cad3444b91b78183ea860d, type: 3}
+  - whatAreYouDoing: {instanceID: 0}
+  - whyCantIHaveIt: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
