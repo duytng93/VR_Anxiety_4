@@ -941,7 +941,7 @@ GameObject:
   m_Component:
   - component: {fileID: 262924364}
   m_Layer: 0
-  m_Name: NPC_walkspots
+  m_Name: TeacherWalkSpots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39955,7 +39955,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810315993}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -43290,7 +43290,6 @@ MonoBehaviour:
   TKBoyB: {fileID: 571776382}
   TKBoyC: {fileID: 1626318020}
   TKBoyD: {fileID: 512424099}
-  avatar: 
 --- !u!4 &1951867193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 634936656867324987, guid: 7092dfedd1c184366b460387b98948c8, type: 3}

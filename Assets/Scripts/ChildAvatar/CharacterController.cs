@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class CharacterControllerR : MonoBehaviour
@@ -10,18 +9,13 @@ public class CharacterControllerR : MonoBehaviour
     public GameObject TKBoyC;
     public GameObject TKBoyD;
 
-    public string avatar;
+    private string avatar;
 
     // Start is called before the first frame update
     void Start()
     {
         UserPrefs userPrefs = FindObjectOfType<UserPrefs>();
 
-        Enums.ChildAvatars childAvatar = userPrefs.GetChildAvatar();
-        /*TKBoyA = GameObject.Find("TKBoyA");
-        TKBoyB = GameObject.Find("TKBoyB");
-        TKBoyC = GameObject.Find("TKBoyC");
-        TKBoyD = GameObject.Find("TKBoyD");*/
         avatar = userPrefs.GetChildAvatar().ToString();
         Debug.Log("Avatar: " + avatar);
 

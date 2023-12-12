@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class resetButtonAtEnd : MonoBehaviour
@@ -37,6 +33,7 @@ public class resetButtonAtEnd : MonoBehaviour
             userPrefs.SetChildAvatar(Enums.ChildAvatars.Hispanic);
             userPrefs.SetLanguage(Enums.Languages.English);
 
+        //reset player position in case the player walked into the room
         PlayerObject.transform.position = PlayerOriginPosition.transform.position;
         PlayerObject.transform.rotation = PlayerOriginPosition.transform.rotation;
     }
