@@ -1,7 +1,6 @@
-using Meta.Voice.Hub;
+
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 // <summary>
 // Update simulation elements to user's language.
@@ -10,7 +9,7 @@ public class SimulationLanguageUpdater : MonoBehaviour
 {
     private UserPrefs userPrefs;
     private TMPro.TextMeshProUGUI speakButtonsHeaderText;
-    public GameObject[] attentionLevelLabels, tantrumLevelLabels;
+    private GameObject[] attentionLevelLabels, tantrumLevelLabels;
     public TMPro.TextMeshProUGUI warningMessage;
     public TMPro.TextMeshProUGUI resetButtonText;
     public TextMeshProUGUI[] breathBoxDescriptions;
@@ -49,12 +48,10 @@ public class SimulationLanguageUpdater : MonoBehaviour
         {
             foreach (GameObject breathImageSpanish in breathImagesSpanish)
             {
-                //breathImage.GetComponent<RawImage>().texture = Resources.Load<Texture>("BreathBoxComponents/boxBreathEnglish.png");
                 breathImageSpanish.SetActive(false);
             }
             foreach (GameObject breathImage in breathImages)
             {
-                //breathImage.GetComponent<RawImage>().texture = Resources.Load<Texture>("BreathBoxComponents/boxBreathEnglish.png");
                 breathImage.SetActive(true);
             }
         }

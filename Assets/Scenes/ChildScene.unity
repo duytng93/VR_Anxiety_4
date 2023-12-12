@@ -24063,10 +24063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1127413158}
-  EndingVoice_adult_English: {fileID: 8300000, guid: 788c0f632766a5a40a922835cde2977e, type: 3}
-  EndingVoice_kid_English: {fileID: 0}
-  EndingVoice_adult_Spanish: {fileID: 8300000, guid: 788c0f632766a5a40a922835cde2977e, type: 3}
-  EndingVoice_kid_Spanish: {fileID: 0}
+  EndingCheeringSound: {fileID: 8300000, guid: 788c0f632766a5a40a922835cde2977e, type: 3}
   resetButton: {fileID: 262924368}
   winOrLoseStatus: {fileID: 1245717413}
 --- !u!4 &1127413157

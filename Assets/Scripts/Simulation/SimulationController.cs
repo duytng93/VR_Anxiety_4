@@ -15,22 +15,15 @@ public class SimulationController : MonoBehaviour
     private float elapsedTime;
     private float tantrumTimeAtZero = 0.0f;
     private float tantrumTimeAboveEighty = 0.0f;
-    //private float tantrumTimeBelowTwenty = 0.0f;
 
     private float gameTimeLimit = 300.0f; // 5 minutes
-    //private float tantrumZeroTimeLimit = 25.0f;
-    //private float tantrumTwentyTimeLimit = 20.0f;
-    private float tantrumEightyTimeLimit = 30.0f; // original is 15
+    private float tantrumEightyTimeLimit = 30.0f; 
 
     public AudioSource audioSource;
-    public AudioClip EndingVoice_adult_English;
-    public AudioClip EndingVoice_kid_English;
-    public AudioClip EndingVoice_adult_Spanish;
-    public AudioClip EndingVoice_kid_Spanish;
+    public AudioClip EndingCheeringSound;
     public Button resetButton;
     public TextMeshProUGUI winOrLoseStatus;
 
-    //private TextMeshProUGUI DebugLabel;
     void Start()
     {
 
@@ -38,7 +31,6 @@ public class SimulationController : MonoBehaviour
         sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
         userPrefs = GameObject.Find("UserPrefs").GetComponent<UserPrefs>();
         simulationLanguageUpdater = GameObject.Find("SimulationLanguageUpdater").GetComponent<SimulationLanguageUpdater>();
-        //DebugLabel = GameObject.Find("DebugLabel").GetComponent<TextMeshProUGUI>();
 
         // Track the elapsed time
         elapsedTime = 0.0f;
@@ -47,8 +39,7 @@ public class SimulationController : MonoBehaviour
 
     void Update()
     {
-        //DebugLabel.text = "time below 20: " + tantrumTimeBelowTwenty;
-
+        
         if (tatrumchildbehavior.simluationOnGoing)
             resetButton.interactable = true;
         else resetButton.interactable = false;
@@ -62,21 +53,18 @@ public class SimulationController : MonoBehaviour
         // Increment the elapsed time
         if (tatrumchildbehavior.simluationOnGoing)
             elapsedTime += Time.deltaTime;
+
         if (tantrumTimeAtZero > 2 && !button1behavior.adultIsSpeaking)
         {
             resetTimer();
             winOrLoseStatus.text = userPrefs.IsEnglishSpeaker() ? "You did it!! The child is calm now!!! :)" : "¡¡Lo hiciste!! ¡¡¡El niño ya está tranquilo!!! :)";
-            if (userPrefs.IsEnglishSpeaker())
-                StartCoroutine(playAudioandEndGameWin(EndingVoice_adult_English));
-            else StartCoroutine(playAudioandEndGameWin(EndingVoice_adult_Spanish));
+            StartCoroutine(playAudioandEndGameWin(EndingCheeringSound));
         }
         else if (tantrumTimeAboveEighty > tantrumEightyTimeLimit || elapsedTime > gameTimeLimit)
         {
             resetTimer();
             winOrLoseStatus.text = userPrefs.IsEnglishSpeaker() ? "Let's try again! :(" : "¡Intentemoslo de nuevo! :(";
-            if (userPrefs.IsEnglishSpeaker())
-                StartCoroutine(playAudioandEndGameLose());
-            else StartCoroutine(playAudioandEndGameLose());
+            StartCoroutine(showEndGameLose());
         }
 
     }
@@ -91,17 +79,6 @@ public class SimulationController : MonoBehaviour
         tantrumTimeAboveEighty += Time.deltaTime;
     }
 
-    /*public void incrementTantrumTimeBelowTwenty() {
-        tantrumTimeBelowTwenty += Time.deltaTime;
-    }
-
-    public float getTantrumTimeBelowTwenty() { 
-        return tantrumTimeBelowTwenty;
-    }
-
-    public float getTantrumTwentyTimeLimit() {
-        return tantrumTwentyTimeLimit;
-    }*/
 
     public void resetTimer()
     {
@@ -123,13 +100,9 @@ public class SimulationController : MonoBehaviour
         else sceneController.LoadScene(Enums.SceneNames.EndSceneWinSpanish);
     }
 
-    IEnumerator playAudioandEndGameLose()
+    IEnumerator showEndGameLose()
     {
-        //tatrumchildbehavior.gameLost = true; // to stop the kid audio
-        //audioSource.clip = clip;
-        //audioSource.Play();
         yield return new WaitForSeconds(5f);
-        //tatrumchildbehavior.gameLost = false;
         sceneController.UnloadScene(Enums.SceneNames.ChildScene);
         if (userPrefs.IsEnglishSpeaker())
             sceneController.LoadScene(Enums.SceneNames.EndSceneLose);
