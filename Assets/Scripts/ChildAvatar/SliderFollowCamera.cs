@@ -116,7 +116,7 @@ public class SliderFollowCamera : MonoBehaviour
                     //the winorlose will show in front of the player object
                     winOrLoseCanvas.transform.position = playerObject.transform.position + playerObject.transform.forward * 2;
                     winOrLoseCanvas.transform.position = new Vector3(winOrLoseCanvas.transform.position.x, -0.25f, winOrLoseCanvas.transform.position.z);
-                    winOrLoseCanvas.transform.rotation = Quaternion.LookRotation(winOrLoseCanvas.transform.position - playerObject.transform.position);
+                    winOrLoseCanvas.transform.rotation = Quaternion.LookRotation(winOrLoseCanvas.transform.position - mainCameraTrans.position);
                     winOrLoseShowed = true;
                 }
                 else {

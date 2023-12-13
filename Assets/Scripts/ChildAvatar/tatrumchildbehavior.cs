@@ -171,7 +171,7 @@ public class tatrumchildbehavior : MonoBehaviour
         tantrumLevel = Mathf.CeilToInt(childState.tantrumLevel / 20);
 
         //if the child stop saying. start counting the time
-        if (!audioSource.isPlaying && !negativeStatementSelected)
+        if (!audioSource.isPlaying) // && !negativeStatementSelected
         {
             breakTimer += Time.deltaTime;
             if (!isWalkingOrRunning && !walkedOrRan && tantrumLevel != 0)
