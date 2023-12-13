@@ -67,13 +67,13 @@ public class NPCAnimationController : MonoBehaviour
         //convert anxiety coefficient to anxiety level
         tantrumLevel = Mathf.CeilToInt(child.GetComponent<ChildState>().tantrumLevel / 20);
 
-        if (tantrumLevel >= 4) {
+        /*if (tantrumLevel >= 4) {
             //if the child's anxiety level is high, she will run to the door so the teacher has to go to the door if she is not currently at the door
             if (transform.position != spots[0].transform.position && move != "walk") {
                 nextSpot = spots[0];
                 move = "walk";
             }
-        }
+        }*/
 
         //if the child is playing Xylophone, the teacher show happiness
         if (tatrumchildbehavior.isPlayingXylophone) {

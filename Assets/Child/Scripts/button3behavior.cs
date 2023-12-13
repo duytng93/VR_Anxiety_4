@@ -26,6 +26,7 @@ public class button3behavior : MonoBehaviour
     public AudioClip spanish_Iamtakingadeepbreathandgoingtoname5things;
 
     public GameObject[] Spots;
+    public GameObject childOriginSpot;
 
     public AudioClip StartVoice;
     public AudioClip StartVoiceSpanish;
@@ -96,10 +97,6 @@ public class button3behavior : MonoBehaviour
 
     void Update()
     {
-        if (parentIsWalking) {
-            parentLookAtTheChild();
-            parentWalk();
-        }
 
         if (atStart && tatrumchildbehavior.childIsTalking)
             introTimer += Time.deltaTime;
@@ -120,6 +117,21 @@ public class button3behavior : MonoBehaviour
             UpdateTextAndAudioClip(tantrumLevel, false);
             yourButton.interactable = true;
             atStart = false;
+        }
+
+        if (parentIsWalking)
+        {
+            parentLookAtTheChild();
+            parentWalk();
+        }
+
+        if (ChildObject.transform.position == childOriginSpot.transform.position && (spot1Visited || spot2Visited)) {
+            nextSpot = Spots[3];
+            parentIsWalking = true;
+            nPCAnimationController.setNextSpot(0);
+            nPCAnimationController.setMove("walk");
+            spot2Visited = false;
+            spot1Visited = false;
         }
     }
 
@@ -200,7 +212,8 @@ public class button3behavior : MonoBehaviour
             nPCAnimationController.setMove("walk");
             spot1Visited = true;
         }
-        else if (tantrumLevel == 1 && !spot2Visited) {
+        else if (tantrumLevel == 1 && !spot2Visited)
+        {
 
             nextSpot = Spots[2];
             parentIsWalking = true;
@@ -208,6 +221,7 @@ public class button3behavior : MonoBehaviour
             nPCAnimationController.setMove("walk");
             spot2Visited = true;
         }
+        
     }
 
     System.Collections.IEnumerator PlayAudioAndChangeTantrumLevel()

@@ -16,6 +16,7 @@ public class tatrumchildbehavior : MonoBehaviour
     AudioSource audioSource;            // main audio
     //Rigidbody rigidBody;
     private GameObject playerObject;
+    private GameObject playerOriginalPosition;
     #endregion
 
     #region Tantrum
@@ -125,6 +126,7 @@ public class tatrumchildbehavior : MonoBehaviour
         //rigidBody = GetComponent<Rigidbody>();
         userPrefs = GameObject.Find("UserPrefs").GetComponent<UserPrefs>();
         playerObject = GameObject.Find("PlayerObject");
+        playerOriginalPosition = GameObject.Find("PlayerOriginPosition");
         npc_female = GameObject.Find("NPC_Female");
         //npc_animator = npc_female.GetComponent<Animator>();
         //DebugLabel = GameObject.Find("DebugLabel").GetComponent<TextMeshProUGUI>();
@@ -177,7 +179,7 @@ public class tatrumchildbehavior : MonoBehaviour
                 findNextSpot();
                 if (Vector3.Distance(nextSpot.transform.position, spots[0].transform.position) > Vector3.Distance(prevSpot.transform.position, spots[0].transform.position))
                 {
-                    if (nextSpot == spots[1])
+                    if (nextSpot == spots[1] && playerObject.transform.position == playerOriginalPosition.transform.position)
                         StartCoroutine(addWalkOrRuntoMove("walkBackward")); // walk backward to spot 1 from spot 0
                     else
                         StartCoroutine(addWalkOrRuntoMove("walk")); // walk to the center of the room

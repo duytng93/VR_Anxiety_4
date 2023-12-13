@@ -1,4 +1,5 @@
 
+using System.Diagnostics.Eventing.Reader;
 using UnityEngine;
 
 public class SliderFollowCamera : MonoBehaviour
@@ -11,6 +12,7 @@ public class SliderFollowCamera : MonoBehaviour
     private bool freezePanelZ;
     private bool winOrLoseShowed;
     private GameObject winOrLoseCanvas;
+    private bool atStart;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class SliderFollowCamera : MonoBehaviour
     private void Awake()
     {
         winOrLoseShowed = false;
+        atStart = true;
     }
 
     // Update is called once per frame
@@ -34,6 +37,8 @@ public class SliderFollowCamera : MonoBehaviour
         // and hide the winorlose status canvas
         if (tatrumchildbehavior.simluationOnGoing)
         {
+            if(atStart)
+                atStart = false;
             foreach (GameObject canvas in attention_tantrum_Canvas)
             {
                 //make the meters canvas follow the camera
@@ -106,10 +111,21 @@ public class SliderFollowCamera : MonoBehaviour
 
             //show winorlose
             if (!winOrLoseShowed) {
-                winOrLoseCanvas.transform.position = mainCameraTrans.position + mainCameraTrans.forward * 2;
-                winOrLoseCanvas.transform.position = new Vector3(winOrLoseCanvas.transform.position.x, -0.25f, winOrLoseCanvas.transform.position.z);
-                winOrLoseCanvas.transform.rotation = Quaternion.LookRotation(winOrLoseCanvas.transform.position - mainCameraTrans.position);
-                winOrLoseShowed = true;
+                if (atStart)
+                {
+                    //the winorlose will show in front of the player object
+                    winOrLoseCanvas.transform.position = playerObject.transform.position + playerObject.transform.forward * 2;
+                    winOrLoseCanvas.transform.position = new Vector3(winOrLoseCanvas.transform.position.x, -0.25f, winOrLoseCanvas.transform.position.z);
+                    winOrLoseCanvas.transform.rotation = Quaternion.LookRotation(winOrLoseCanvas.transform.position - playerObject.transform.position);
+                    winOrLoseShowed = true;
+                }
+                else {
+                    //the winorlose will show in front of main camera
+                    winOrLoseCanvas.transform.position = mainCameraTrans.position + mainCameraTrans.forward * 2;
+                    winOrLoseCanvas.transform.position = new Vector3(winOrLoseCanvas.transform.position.x, -0.25f, winOrLoseCanvas.transform.position.z);
+                    winOrLoseCanvas.transform.rotation = Quaternion.LookRotation(winOrLoseCanvas.transform.position - mainCameraTrans.position);
+                    winOrLoseShowed = true;
+                }
             }
         }
 
