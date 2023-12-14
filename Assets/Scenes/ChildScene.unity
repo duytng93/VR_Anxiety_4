@@ -7956,6 +7956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   childState: {fileID: 420787454}
+  teacherAnimController: {fileID: 1810316001}
   startVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
   startVoiceSpanish: {fileID: 8300000, guid: 4818b59f52005b6469c19043053722c1, type: 3}
   level5Cry1: {fileID: 8300000, guid: 543772961ddbe0d4eaf8760b8c6c7b41, type: 3}
@@ -7995,7 +7996,6 @@ MonoBehaviour:
   - {fileID: 314916830}
   specialSpot: {fileID: 1165618081}
   xylophoneManager: {fileID: 2120734558}
-  npcAnimationController: {fileID: 1810316001}
 --- !u!82 &420787452
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8160,7 +8160,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9b961656885bac4c9a2401283e8778c, type: 2}
   - {fileID: 11400000, guid: 0e4194523d0f306459db775d6d2d5a37, type: 2}
   - {fileID: 11400000, guid: 7f9191fc14815594bb094ace92585ba9, type: 2}
-  eyeTrackingUpdatesAttentionLevel: 1
   boxedbreather: {fileID: 1288310040}
   panelRectTransform: {fileID: 674241316}
 --- !u!1001 &424590733
@@ -10977,6 +10976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   childState: {fileID: 512424108}
+  teacherAnimController: {fileID: 1810316001}
   startVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
   startVoiceSpanish: {fileID: 8300000, guid: 4818b59f52005b6469c19043053722c1, type: 3}
   level5Cry1: {fileID: 8300000, guid: 543772961ddbe0d4eaf8760b8c6c7b41, type: 3}
@@ -11016,7 +11016,6 @@ MonoBehaviour:
   - {fileID: 314916830}
   specialSpot: {fileID: 1165618081}
   xylophoneManager: {fileID: 2120734558}
-  npcAnimationController: {fileID: 1810316001}
 --- !u!82 &512424105
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11165,7 +11164,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9b961656885bac4c9a2401283e8778c, type: 2}
   - {fileID: 11400000, guid: 0e4194523d0f306459db775d6d2d5a37, type: 2}
   - {fileID: 11400000, guid: 7f9191fc14815594bb094ace92585ba9, type: 2}
-  eyeTrackingUpdatesAttentionLevel: 1
   boxedbreather: {fileID: 841956695}
   panelRectTransform: {fileID: 843595349}
 --- !u!114 &512424108
@@ -12462,6 +12460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   childState: {fileID: 571776389}
+  teacherAnimController: {fileID: 1810316001}
   startVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
   startVoiceSpanish: {fileID: 8300000, guid: 4818b59f52005b6469c19043053722c1, type: 3}
   level5Cry1: {fileID: 8300000, guid: 543772961ddbe0d4eaf8760b8c6c7b41, type: 3}
@@ -12501,7 +12500,6 @@ MonoBehaviour:
   - {fileID: 314916830}
   specialSpot: {fileID: 1165618081}
   xylophoneManager: {fileID: 2120734558}
-  npcAnimationController: {fileID: 1810316001}
 --- !u!82 &571776387
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12629,7 +12627,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9b961656885bac4c9a2401283e8778c, type: 2}
   - {fileID: 11400000, guid: 0e4194523d0f306459db775d6d2d5a37, type: 2}
   - {fileID: 11400000, guid: 7f9191fc14815594bb094ace92585ba9, type: 2}
-  eyeTrackingUpdatesAttentionLevel: 1
   boxedbreather: {fileID: 572587427}
   panelRectTransform: {fileID: 1048892107}
 --- !u!114 &571776389
@@ -16379,7 +16376,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9b961656885bac4c9a2401283e8778c, type: 2}
   - {fileID: 11400000, guid: 0e4194523d0f306459db775d6d2d5a37, type: 2}
   - {fileID: 11400000, guid: 7f9191fc14815594bb094ace92585ba9, type: 2}
-  eyeTrackingUpdatesAttentionLevel: 1
   boxedbreather: {fileID: 412993647}
   panelRectTransform: {fileID: 0}
 --- !u!114 &755249121
@@ -16718,6 +16714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   childState: {fileID: 755249121}
+  teacherAnimController: {fileID: 0}
   startVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
   startVoiceSpanish: {fileID: 8300000, guid: 4818b59f52005b6469c19043053722c1, type: 3}
   level5Cry1: {fileID: 8300000, guid: 543772961ddbe0d4eaf8760b8c6c7b41, type: 3}
@@ -16757,7 +16754,6 @@ MonoBehaviour:
   - {fileID: 314916830}
   specialSpot: {fileID: 1190150262}
   xylophoneManager: {fileID: 0}
-  npcAnimationController: {fileID: 0}
 --- !u!114 &755249131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19007,6 +19003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   childState: {fileID: 862248921}
+  teacherAnimController: {fileID: 0}
   startVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
   startVoiceSpanish: {fileID: 0}
   level5Cry1: {fileID: 8300000, guid: 543772961ddbe0d4eaf8760b8c6c7b41, type: 3}
@@ -19041,7 +19038,6 @@ MonoBehaviour:
   spots: []
   specialSpot: {fileID: 0}
   xylophoneManager: {fileID: 0}
-  npcAnimationController: {fileID: 0}
 --- !u!54 &862248909
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19473,7 +19469,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9b961656885bac4c9a2401283e8778c, type: 2}
   - {fileID: 11400000, guid: 0e4194523d0f306459db775d6d2d5a37, type: 2}
   - {fileID: 11400000, guid: 7f9191fc14815594bb094ace92585ba9, type: 2}
-  eyeTrackingUpdatesAttentionLevel: 1
   boxedbreather: {fileID: 0}
   panelRectTransform: {fileID: 0}
 --- !u!114 &862248921
@@ -22914,10 +22909,8 @@ MonoBehaviour:
   - {fileID: 1302955014}
   - {fileID: 1431360845}
   childOriginSpot: {fileID: 1205555593}
-  StartVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
-  StartVoiceSpanish: {fileID: 8300000, guid: 4818b59f52005b6469c19043053722c1, type: 3}
   tmpText: {fileID: 1021507939}
-  nPCAnimationController: {fileID: 1810316001}
+  teacherAnimController: {fileID: 1810316001}
 --- !u!82 &1021507941
 AudioSource:
   m_ObjectHideFlags: 0
@@ -29890,7 +29883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4013194009950391955, guid: ac6b4d43744179f468ce41057b4e2d71, type: 3}
       propertyPath: m_Name
-      value: NPC_Female
+      value: TeacherDoctor
       objectReference: {fileID: 0}
     - target: {fileID: 4013194009950391957, guid: ac6b4d43744179f468ce41057b4e2d71, type: 3}
       propertyPath: m_IsActive
@@ -31431,6 +31424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   childState: {fileID: 1435735131}
+  teacherAnimController: {fileID: 0}
   startVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
   startVoiceSpanish: {fileID: 0}
   level5Cry1: {fileID: 8300000, guid: 543772961ddbe0d4eaf8760b8c6c7b41, type: 3}
@@ -31465,7 +31459,6 @@ MonoBehaviour:
   spots: []
   specialSpot: {fileID: 0}
   xylophoneManager: {fileID: 0}
-  npcAnimationController: {fileID: 0}
 --- !u!54 &1435735119
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31897,7 +31890,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9b961656885bac4c9a2401283e8778c, type: 2}
   - {fileID: 11400000, guid: 0e4194523d0f306459db775d6d2d5a37, type: 2}
   - {fileID: 11400000, guid: 7f9191fc14815594bb094ace92585ba9, type: 2}
-  eyeTrackingUpdatesAttentionLevel: 1
   boxedbreather: {fileID: 0}
   panelRectTransform: {fileID: 0}
 --- !u!114 &1435735131
@@ -32329,8 +32321,6 @@ MonoBehaviour:
   spanish_Youdontwantmetoleavebecauseyouarefeelingscared: {fileID: 8300000, guid: 1a5563fe324714c4e8be7e5316c6dee3, type: 3}
   spanish_Iunderstandyouarefeelingscared: {fileID: 8300000, guid: 5563e375f8600144688760addf136ec7, type: 3}
   spanish_Igetthatitfeelsscarytoseparate: {fileID: 8300000, guid: d522effc8951da34999c7385115604e2, type: 3}
-  StartVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
-  StartVoiceSpanish: {fileID: 8300000, guid: 4818b59f52005b6469c19043053722c1, type: 3}
   tmpText: {fileID: 1450610297}
 --- !u!1001 &1451386711
 PrefabInstance:
@@ -35919,8 +35909,6 @@ MonoBehaviour:
   Graciaspormantenertusbrazosypiesatuslados: {fileID: 8300000, guid: 03623976bbdc14f9a8152119ab1cd538, type: 3}
   Graciasporintentarrespiraprofundo: {fileID: 8300000, guid: 3f3286ef0786204499fc0156b70e1188, type: 3}
   Spanish_Thankyouforunderstandingthatitistimetowalkintotheroom: {fileID: 8300000, guid: dd4994e5d22225244842d95073d2063a, type: 3}
-  StartVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
-  StartVoiceSpanish: {fileID: 8300000, guid: 4818b59f52005b6469c19043053722c1, type: 3}
   tmpText: {fileID: 1616873070}
 --- !u!1 &1617821839
 GameObject:
@@ -36953,6 +36941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   childState: {fileID: 1626318025}
+  teacherAnimController: {fileID: 1810316001}
   startVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
   startVoiceSpanish: {fileID: 8300000, guid: 4818b59f52005b6469c19043053722c1, type: 3}
   level5Cry1: {fileID: 8300000, guid: 543772961ddbe0d4eaf8760b8c6c7b41, type: 3}
@@ -36992,7 +36981,6 @@ MonoBehaviour:
   - {fileID: 314916830}
   specialSpot: {fileID: 1165618081}
   xylophoneManager: {fileID: 2120734558}
-  npcAnimationController: {fileID: 1810316001}
 --- !u!82 &1626318024
 AudioSource:
   m_ObjectHideFlags: 0
@@ -37136,7 +37124,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9b961656885bac4c9a2401283e8778c, type: 2}
   - {fileID: 11400000, guid: 0e4194523d0f306459db775d6d2d5a37, type: 2}
   - {fileID: 11400000, guid: 7f9191fc14815594bb094ace92585ba9, type: 2}
-  eyeTrackingUpdatesAttentionLevel: 1
   boxedbreather: {fileID: 1532774076}
   panelRectTransform: {fileID: 442107034}
 --- !u!95 &1626318027
@@ -37392,8 +37379,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yourButton: {fileID: 266585890}
   audioSource: {fileID: 1638341831}
-  StartVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
-  StartVoiceSpanish: {fileID: 8300000, guid: 4818b59f52005b6469c19043053722c1, type: 3}
   Youneedtoquietdownrightnow: {fileID: 8300000, guid: 61381de9bd7c58343a98b99f9057c9c6, type: 3}
   Youneedtocalmyourselfdownnow: {fileID: 8300000, guid: 4005be8cb93fe704e87fce6faa53f964, type: 3}
   itsreallytimetogonow: {fileID: 8300000, guid: 4f21e4bee918cd54fa51fdf34dedeea4, type: 3}
@@ -41022,6 +41007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   childState: {fileID: 1844837153}
+  teacherAnimController: {fileID: 0}
   startVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
   startVoiceSpanish: {fileID: 0}
   level5Cry1: {fileID: 8300000, guid: 543772961ddbe0d4eaf8760b8c6c7b41, type: 3}
@@ -41056,7 +41042,6 @@ MonoBehaviour:
   spots: []
   specialSpot: {fileID: 0}
   xylophoneManager: {fileID: 0}
-  npcAnimationController: {fileID: 0}
 --- !u!54 &1844837141
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -41488,7 +41473,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9b961656885bac4c9a2401283e8778c, type: 2}
   - {fileID: 11400000, guid: 0e4194523d0f306459db775d6d2d5a37, type: 2}
   - {fileID: 11400000, guid: 7f9191fc14815594bb094ace92585ba9, type: 2}
-  eyeTrackingUpdatesAttentionLevel: 1
   boxedbreather: {fileID: 0}
   panelRectTransform: {fileID: 0}
 --- !u!114 &1844837153
@@ -42773,19 +42757,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7753147258609537286, guid: fa5ef3b56cfeb4f4ba855cdf2610a578, type: 3}
       propertyPath: m_Colors.m_DisabledColor.a
-      value: 0
+      value: 0.5019608
       objectReference: {fileID: 0}
     - target: {fileID: 7753147258609537286, guid: fa5ef3b56cfeb4f4ba855cdf2610a578, type: 3}
       propertyPath: m_Colors.m_DisabledColor.b
-      value: 0
+      value: 0.050980393
       objectReference: {fileID: 0}
     - target: {fileID: 7753147258609537286, guid: fa5ef3b56cfeb4f4ba855cdf2610a578, type: 3}
       propertyPath: m_Colors.m_DisabledColor.g
-      value: 0
+      value: 0.41568628
       objectReference: {fileID: 0}
     - target: {fileID: 7753147258609537286, guid: fa5ef3b56cfeb4f4ba855cdf2610a578, type: 3}
       propertyPath: m_Colors.m_DisabledColor.r
-      value: 0
+      value: 0.050980393
       objectReference: {fileID: 0}
     - target: {fileID: 7753147258609537286, guid: fa5ef3b56cfeb4f4ba855cdf2610a578, type: 3}
       propertyPath: m_Colors.m_SelectedColor.b
@@ -43025,8 +43009,6 @@ MonoBehaviour:
   spanish_Greatjobpracticingbeingbravebycalmingdown: {fileID: 8300000, guid: 97844b320c71649438a061e1ea0cd002, type: 3}
   spanish_Ilikehowyouarecalmlywalkingcloser: {fileID: 8300000, guid: d6888968ef57e2d45a17b654e1dcbe00, type: 3}
   spanish_Ilovehowbraveyouarebeingbywalkingmoreintotheroom: {fileID: 8300000, guid: d030ddfe99a3ea8498aa18d2f2aa499b, type: 3}
-  StartVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
-  StartVoiceSpanish: {fileID: 8300000, guid: 4818b59f52005b6469c19043053722c1, type: 3}
   tmpText: {fileID: 1914313321}
   button3: {fileID: 1021507938}
   button1: {fileID: 1205078411}
@@ -44750,8 +44732,6 @@ MonoBehaviour:
   spanish_youareactinglikeascaredcat: {fileID: 8300000, guid: ed1d2b8533661044bb0593689436ddaa, type: 3}
   spanish_youarebeingbeyondridiculous: {fileID: 8300000, guid: de3ae8de6bf33b04f820d92c25122e4c, type: 3}
   spanish_youarestartingtomakemeangry: {fileID: 8300000, guid: f2a9a250af7036e4c81dbd89847f2949, type: 3}
-  StartVoice: {fileID: 8300000, guid: 78c6c05e1ff729c44b140ff5270ce89c, type: 3}
-  StartVoiceSpanish: {fileID: 8300000, guid: 4818b59f52005b6469c19043053722c1, type: 3}
   tmpText: {fileID: 2053077511}
 --- !u!82 &2053077514
 AudioSource:

@@ -1,4 +1,4 @@
-using System.Security.Cryptography.X509Certificates;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,36 +28,23 @@ public class button3behavior : MonoBehaviour
     public GameObject[] Spots;
     public GameObject childOriginSpot;
 
-    public AudioClip StartVoice;
-    public AudioClip StartVoiceSpanish;
-
     private ChildState childState;
     public TextMeshProUGUI tmpText;
 
-    private float tantrumLevelInV2;
     private int tantrumLevel;
     private float amount;
-    private bool atStart;
-    private float introTimer;
-    private float introLength;
 
-    private bool parentIsWalking;
+    private bool playerIsWalking;
     private GameObject nextSpot;
     private GameObject PlayerObject;
     private GameObject ChildObject;
-    public NPCAnimationController nPCAnimationController;
+    public NPCAnimationController teacherAnimController;
     private bool spot1Visited,spot2Visited;
     void Start()
     {
         tmpText = yourButton.GetComponentInChildren<TextMeshProUGUI>();
         userPrefs = GameObject.Find("UserPrefs").GetComponent<UserPrefs>();
         PlayerObject = GameObject.Find("PlayerObject");
-
-
-        if (tmpText == null)
-        {
-            Debug.LogError("TextMeshProUGUI component not found on the button's children.");
-        }
 
         switch (userPrefs.GetChildAvatar())
         {
@@ -66,70 +53,57 @@ public class button3behavior : MonoBehaviour
                 childState = ChildObject.GetComponent<ChildController>().childState;
                 break;
             case Enums.ChildAvatars.Black:
-                //childState = GameObject.Find("TKGirlB").GetComponent<ChildController>().childState;
                 ChildObject = GameObject.Find("TKGirlB");
                 childState = ChildObject.GetComponent<ChildController>().childState;
                 break;
             case Enums.ChildAvatars.White:
                 ChildObject = GameObject.Find("TKGirlC");
                 childState = ChildObject.GetComponent<ChildController>().childState;
-                //childState = GameObject.Find("TKGirlC").GetComponent<ChildController>().childState;
                 break;
             case Enums.ChildAvatars.Asian:
                 ChildObject = GameObject.Find("TKGirlD");
                 childState = ChildObject.GetComponent<ChildController>().childState;
-                //childState = GameObject.Find("TKGirlD").GetComponent<ChildController>().childState;
                 break;
         }
 
-        tantrumLevelInV2 = childState.tantrumLevel;
-        tantrumLevel = Mathf.CeilToInt(tantrumLevelInV2 / 20);
+        tantrumLevel = Mathf.CeilToInt(childState.tantrumLevel / 20);
         UpdateTextAndAudioClip(tantrumLevel, false); // Initial setup of text and audio clip
 
         yourButton.onClick.AddListener(OnButtonClick);
-        introTimer = 0f;
-        introLength = userPrefs.IsEnglishSpeaker() ? StartVoice.length : StartVoiceSpanish.length;
-        atStart = true;
-        parentIsWalking = false;
+        playerIsWalking = false;
         spot1Visited = false;
         spot2Visited = false;
     }
 
     void Update()
     {
+       
+        tantrumLevel = Mathf.CeilToInt(childState.tantrumLevel / 20);
 
-        if (atStart && tatrumchildbehavior.childIsTalking)
-            introTimer += Time.deltaTime;
-        tantrumLevelInV2 = childState.tantrumLevel;
-        tantrumLevel = Mathf.CeilToInt(tantrumLevelInV2 / 20);
-
-        if (atStart && introTimer < introLength || button1behavior.adultIsSpeaking || !tatrumchildbehavior.simluationOnGoing) 
-            //|| (PlayerObject.transform.position == Spots[1].transform.position && tantrumLevel == 2) 
-           // || (PlayerObject.transform.position == Spots[2].transform.position && tantrumLevel == 1)
-            //|| (PlayerObject.transform.position == Spots[2].transform.position && tantrumLevel == 2))  
-        {                                                                        // if the player've just clicked this button and the audio is play -> disable button so they can't click it again
+        if ( button1behavior.adultIsSpeaking || !tatrumchildbehavior.simluationOnGoing) // if player is talking or the simulation is not going yet. disable the button but still update the text
+        {                                                                        
             yourButton.interactable = false;
             UpdateTextAndAudioClip(tantrumLevel, true);
         }
         else if (!button1behavior.adultIsSpeaking)
-        { // let the parent finish talking first, otherwise their audio is cut off during tantrum level change
-
+        { //if the player finish talking then enable the button. 
             UpdateTextAndAudioClip(tantrumLevel, false);
             yourButton.interactable = true;
-            atStart = false;
         }
 
-        if (parentIsWalking)
+        // if the walking flag is true then make the playerObject look at the child and change the position
+        if (playerIsWalking)
         {
-            parentLookAtTheChild();
-            parentWalk();
+            playerLookAtTheChild();
+            playerWalk();
         }
 
+        // if the child run back to the origin position at the door then the player and teacher will try to walk toward the door.
         if (ChildObject.transform.position == childOriginSpot.transform.position && (spot1Visited || spot2Visited)) {
             nextSpot = Spots[3];
-            parentIsWalking = true;
-            nPCAnimationController.setNextSpot(0);
-            nPCAnimationController.setMove("walk");
+            playerIsWalking = true;
+            teacherAnimController.setNextSpot(0);
+            teacherAnimController.setMove("walk");
             spot2Visited = false;
             spot1Visited = false;
         }
@@ -137,7 +111,6 @@ public class button3behavior : MonoBehaviour
 
     void UpdateTextAndAudioClip(int tantrumLevel, bool textOnly)
     {
-
         switch (tantrumLevel)
         {
             case 0:
@@ -207,18 +180,18 @@ public class button3behavior : MonoBehaviour
         if (tantrumLevel == 2 && !spot1Visited)
         {
             nextSpot = Spots[1];
-            parentIsWalking = true;
-            nPCAnimationController.setNextSpot(1);
-            nPCAnimationController.setMove("walk");
+            playerIsWalking = true;
+            teacherAnimController.setNextSpot(1);
+            teacherAnimController.setMove("walk");
             spot1Visited = true;
         }
         else if (tantrumLevel == 1 && !spot2Visited)
         {
 
             nextSpot = Spots[2];
-            parentIsWalking = true;
-            nPCAnimationController.setNextSpot(2);
-            nPCAnimationController.setMove("walk");
+            playerIsWalking = true;
+            teacherAnimController.setNextSpot(2);
+            teacherAnimController.setMove("walk");
             spot2Visited = true;
         }
         
@@ -234,10 +207,6 @@ public class button3behavior : MonoBehaviour
             audioSource.Play();
             yield return new WaitForSeconds(audioSource.clip.length);
             button1behavior.adultIsSpeaking = false;
-            /*if (!tatrumchildbehavior.childIsTalking)
-            {
-                childState.ChangeTantrumLevel(amount);
-            }*/
         }
         else
         {
@@ -246,19 +215,19 @@ public class button3behavior : MonoBehaviour
 
     }
 
-    void parentLookAtTheChild() {
+    void playerLookAtTheChild() {
         Quaternion lookRotation2 = Quaternion.LookRotation((ChildObject.transform.position - PlayerObject.transform.position).normalized);
         PlayerObject.transform.rotation = Quaternion.Slerp(PlayerObject.transform.rotation, lookRotation2, Time.deltaTime);
     }
 
-    void parentWalk() {
+    void playerWalk() {
         if (PlayerObject.transform.position != nextSpot.transform.position)
         {
             PlayerObject.transform.position = Vector3.MoveTowards(PlayerObject.transform.position, nextSpot.transform.position, 0.8f * Time.deltaTime);
         }
         else
         {
-            parentIsWalking = false;
+            playerIsWalking = false;
         }
     }
 

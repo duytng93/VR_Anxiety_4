@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
+
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 public class button2behavior : MonoBehaviour
@@ -26,18 +23,11 @@ public class button2behavior : MonoBehaviour
     public AudioClip spanish_Ilovehowbraveyouarebeingbywalkingmoreintotheroom;
 
 
-    public AudioClip StartVoice;
-    public AudioClip StartVoiceSpanish;
-
     private ChildState childState;
     public TextMeshProUGUI tmpText;
 
-    private float tantrumLevelInV2;
     private int tantrumLevel;
     private float amount;
-    private bool atStart;
-    private float introTimer;
-    private float introLength;
     private float showingTimer;
     //private TextMeshProUGUI DebugLabel;
     public Button button3, button1, button4, button5, button6;
@@ -67,39 +57,27 @@ public class button2behavior : MonoBehaviour
                 break;
         }
 
-        tantrumLevelInV2 = childState.tantrumLevel;
-        tantrumLevel = Mathf.CeilToInt(tantrumLevelInV2 / 20);
+        tantrumLevel = Mathf.CeilToInt(childState.tantrumLevel / 20);
         UpdateTextAndAudioClip(tantrumLevel); // Initial setup of text and audio clip
         yourButton.onClick.AddListener(OnButtonClick);
-        introTimer = 0f;
-        introLength = userPrefs.IsEnglishSpeaker() ? StartVoice.length : StartVoiceSpanish.length;
-        atStart = true;
     }
 
     void Update()
     {
-        //DebugLabel.text = "button 3 y: " + button3.transform.localPosition.y;
-        if (atStart && tatrumchildbehavior.childIsTalking)
-            introTimer += Time.deltaTime;
-
-        tantrumLevelInV2 = childState.tantrumLevel;
-        tantrumLevel = Mathf.CeilToInt(tantrumLevelInV2 / 20);
+        tantrumLevel = Mathf.CeilToInt(childState.tantrumLevel / 20);
 
         if (!tatrumchildbehavior.approachBehavior)
             showingTimer = 0f;
         else showingTimer += Time.deltaTime;
         
-        
-
-        if (atStart && introTimer < introLength || button1behavior.adultIsSpeaking || !tatrumchildbehavior.simluationOnGoing)  // if we at start the child is saying the greeting -> disable the button
-        {                                                                        // if the player've just clicked this button and the audio is play -> disable button so they can't click it again
+        if (button1behavior.adultIsSpeaking || !tatrumchildbehavior.simluationOnGoing)  // if player is talking or the simulation is not going yet. disable the button but still update the text
+        {                                                                        
             yourButton.interactable = false;
-            tmpText.text = "";
-
-            moveButtonsUp();
+            //tmpText.text = "";
+            //moveButtonsUp();
         }
         else if (!button1behavior.adultIsSpeaking)
-        { // let the parent finish talking first, otherwise their audio is cut off during tantrum level change
+        { //if the player finish talking then enable the button. if button is showing more than 10 second, disable it
             UpdateTextAndAudioClip(tantrumLevel);
             if (tatrumchildbehavior.approachBehavior && showingTimer < 10f)
             {
@@ -113,8 +91,6 @@ public class button2behavior : MonoBehaviour
                 moveButtonsUp();
                 tatrumchildbehavior.approachBehavior = false;
             }
-                
-            atStart = false;
         }
 
     }
@@ -182,11 +158,6 @@ public class button2behavior : MonoBehaviour
             audioSource.Play();
             yield return new WaitForSeconds(audioSource.clip.length);
             button1behavior.adultIsSpeaking = false;
-
-            /*if (!tatrumchildbehavior.childIsTalking)
-            {
-                childState.ChangeTantrumLevel(amount);
-            }*/
         }
         else
         {
@@ -194,11 +165,7 @@ public class button2behavior : MonoBehaviour
         }
 
     }
-    IEnumerator enableButtonAfter(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        yourButton.interactable = true;
-    }
+
 
     void moveButtonsUp() {
         if (button3.transform.localPosition.y <= 138)

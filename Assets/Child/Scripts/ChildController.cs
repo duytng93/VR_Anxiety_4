@@ -1,79 +1,71 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class ChildController : MonoBehaviour
 {
+
     public ChildState childState;
     public SimulationController simulationController;
     public FaceCheck faceCheck;
+
+    #region unused variables
+    //have a reference from ChildAnimationController.cs but this script is not currently used
     public ChildMovementController movementController;
     public EyeTrackingObjectFocuser eyeTrackingObjectFocuser;
     public ChildAnimationController childAnimationController;
+    #endregion
+
     //Refs for GUI
     public FloatingBar attentionBar, tantrumBar;
-    private Color attentionBarTempColor;
-    //Behaviors which respond to attention and tantrum level
     public List<AttentionLevelRegion> attentionRegions;
     public List<TantrumRegion> tantrumRegions;
-    public bool eyeTrackingUpdatesAttentionLevel = false;
-
-   
 
     //boxed breathing UI
     public GameObject boxedbreather;
     private float boxedbreatherTimer;
     public RectTransform panelRectTransform;
 
-    //Number of times these values are updated per second (Note: rates of change are intentionally independent)
-    private float updateFrequencyPerSecond = 0.1f;
-
-    //Begin the coroutine when this wakes up.
-
+    //Number of times these values are updated per second
+    private float updateFrequencyPerSecond;
     private GameObject[] focusStatusTextMesh;
     private UserPrefs userPrefs;
     private void Start()
     {
         focusStatusTextMesh = GameObject.FindGameObjectsWithTag("FocusStatus");
         userPrefs = GameObject.Find("UserPrefs").GetComponent<UserPrefs>();
+        simulationController = GameObject.Find("SimulationController").GetComponent<SimulationController>();
         boxedbreatherTimer = 0;
+        updateFrequencyPerSecond = Time.deltaTime;
     }
-    public void Awake()
-    {
-        attentionBarTempColor = new Color();
-        //StartCoroutine("UpdateChild");
-    }
-
+    
     void Update()
     {
-
-        //yield return new WaitForSeconds(updateFrequencyPerSecond);
-        updateFrequencyPerSecond = Time.deltaTime;
+        // check if the player is facing the child, if so change the focusStatus accordingly
         if(faceCheck.IsFacingPlayer())
         {
             childState.receivingAttention = true;
             updateFocusStatus(userPrefs.IsEnglishSpeaker() ? "You're focusing on the child" : "Estás prestando atención al niño");
-            //handRenderer.material = handsMaterial;
         }
         else
         {
             childState.receivingAttention = false;
             updateFocusStatus(userPrefs.IsEnglishSpeaker() ? "You're ignoring the child" : "Estás ignorando al niño");
-            //handRenderer.material = null;
         }
 
-        //if tantrunlevel > 4 display boxed breather Ui
-
+        //if tantrunlevel >= 4, display boxed breather Ui
         if (childState.tantrumLevel > 60)
         {
             boxedbreather.SetActive(true);
             panelRectTransform.offsetMin = new Vector2(360, 0); // expand back ground panel
         }
 
+        //if boxedbreather is showing, count the time
         if (boxedbreather.activeSelf)
             boxedbreatherTimer += Time.deltaTime;
 
+        //if boxedbreather is showing more than 16s and the anxiety level is low, hide the boxedbreather
         if (boxedbreatherTimer > 16f && childState.tantrumLevel < 60)
         {
             boxedbreather.SetActive(false);
@@ -100,11 +92,8 @@ public class ChildController : MonoBehaviour
                 {
                     attentionLevelChangePerSecond = -region.attentionLevelLostPerSecond;
                 }
-                /*if (simulationController.getTantrumTimeBelowTwenty() >= simulationController.getTantrumTwentyTimeLimit() && !tatrumchildbehavior.childIsTalking)
-                    childState.tantrumLevel -= 10 * updateFrequencyPerSecond;*/
             }
             
-
             if (isWithinRange(0, 100, childState.attentionLevel + (attentionLevelChangePerSecond * updateFrequencyPerSecond)))
             {
                 childState.attentionLevel += attentionLevelChangePerSecond * updateFrequencyPerSecond;
@@ -114,7 +103,7 @@ public class ChildController : MonoBehaviour
                 childState.attentionLevel = (childState.attentionLevel > 50) ? 100 : 0;
             }
 
-            //If the attention level is too low, increase tantrum level
+            //If the attention level is too low, increase anxiety level
             if (childState.tantrumLevel < 25 && childState.attentionLevel <= 30)
             {
                 childState.tantrumLevel += 3 * updateFrequencyPerSecond;
@@ -122,24 +111,27 @@ public class ChildController : MonoBehaviour
                     childState.tantrumLevel = 25;
             }
             
-
+            //update anxiety level (the rate of increase or decrease is controlled by tantrum regions
             if (childState.receivingAttention)
-            {
+            {   //if the child receives attention while showing negative behaviors => anxiety level increased
                 if (childState.tantrumLevel > 0 && tatrumchildbehavior.childIsTalking)
                     childState.tantrumLevel += region.tantrumLevelIncreasePerSecond * updateFrequencyPerSecond;
+                //if the child receives attention while showing calm behaviors => anxiety level decreased
                 else if (childState.tantrumLevel > 0 && !tatrumchildbehavior.childIsTalking)
                     childState.tantrumLevel -= region.tantrumLevelDecreasePerSecond * updateFrequencyPerSecond;
             }
             else
             {
+                //if the child receives NO attention while showing negative behaviors => anxiety level decreased unless the player just chose a negative statement
                 if (childState.tantrumLevel > 0 && tatrumchildbehavior.childIsTalking && !tatrumchildbehavior.negativeStatementSelected)
                     childState.tantrumLevel -= region.tantrumLevelDecreasePerSecond * updateFrequencyPerSecond;
+                //if the child receives NO attention while showing calm behavior => anxiety level increased
                 else if (childState.tantrumLevel > 0 && !tatrumchildbehavior.childIsTalking)
                     childState.tantrumLevel += 1 * updateFrequencyPerSecond;
             }
 
             
-
+            // limit the anxiety level between 0 and 100
             if (childState.tantrumLevel > 100)
                 childState.tantrumLevel = 100;
             else if (childState.tantrumLevel < 0)
@@ -171,20 +163,12 @@ public class ChildController : MonoBehaviour
         if (tantrumBar != null)
             tantrumBar.UpdateBar(childState.tantrumLevel, 100);
 
-        //Wait for the next time step and then call the coroutine again
-        //StartCoroutine("UpdateChild");
-
-        // Update the tantrum tracker
-        simulationController = GameObject.Find("SimulationController").GetComponent<SimulationController>();
-
+        //count the time anxiety level at zero to announce win
         if (childState.tantrumLevel == 0 && tatrumchildbehavior.simluationOnGoing)
         {
-            //Debug.Log("incrementTantrumTimeAtZero");
             simulationController.incrementTantrumTimeAtZero();
         }
-        /*else if (childState.tantrumLevel <= 20 && tatrumchildbehavior.simluationOnGoing) {
-            simulationController.incrementTantrumTimeBelowTwenty();
-        }*/
+        //count the time anxiety level at zero to determin lose
         else if (childState.tantrumLevel > 80 && tatrumchildbehavior.simluationOnGoing)
         {
             simulationController.incrementTantrumTimeAboveEighty();
@@ -198,6 +182,8 @@ public class ChildController : MonoBehaviour
         return (newValue >= lo && newValue <= hi);
     }
 
+    #region unused function
+    //have a reference from ChildAnimationController.cs but this script is not currently used
     public List<ChildBehaviorState> GetValidBehaviors()
     {
         List<ChildBehaviorState> result = new();
@@ -214,12 +200,7 @@ public class ChildController : MonoBehaviour
 
         return result;
     }
-
-    public bool CheckProbability(float probability)
-    {
-        return Random.Range(0f, 1f) < probability;
-    }
-
+    #endregion
 
     public void updateFocusStatus(string message) {
         foreach (GameObject focusStatusLabel in focusStatusTextMesh)

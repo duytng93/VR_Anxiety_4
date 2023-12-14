@@ -1,47 +1,32 @@
 //using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class tatrumchildbehavior : MonoBehaviour
 {
     public ChildState childState;
-    //public float tantrumLevelInV2;
     private UserPrefs userPrefs;
-    #region Objects
     Animator animator;
-    AudioSource audioSource;            // main audio
-    //Rigidbody rigidBody;
+    AudioSource audioSource;
+
+    //need these to make player look at the teacher or the child look at the player some times during simulation
     private GameObject playerObject;
     private GameObject playerOriginalPosition;
-    #endregion
+    private bool playerNeedToLookAtTeacher;
+    private bool playerNeedToLookAtChild;
 
-    #region Tantrum
-    //public static int tantrumCoefficient;// matches tantrum coefficient from GazeAnalysis
-    public static int tantrumLevel;     // simplified version of tantrumCoefficient only has 6 levels
+    //need these to make the teacher react to the child behaviors
+    private GameObject teacher;
+    public NPCAnimationController teacherAnimController;
+
+    private int tantrumLevel;  // simplified version of tantrumCoefficient only has 6 levels
     
-    #endregion
-
-    #region Movement
-    string move;                      
-    #endregion
-
-
+    string move; // to hold the child behavior(cry, stamp, walk etc...) at any moment                     
+    private float breakTimer; // timer for 9s calm between big emotion behaviors
     #region Audio Clips
     public AudioClip startVoice;
     public AudioClip startVoiceSpanish;
-    /*public AudioClip level2Cry1;
-    public AudioClip level2Cry2;
-    public AudioClip level2Cry3;
-    public AudioClip level3Cry1;
-    public AudioClip level3Cry2;
-    public AudioClip level3Cry3;
-    public AudioClip level4Cry1;
-    public AudioClip level4Cry2;
-    public AudioClip level4Cry3;*/
     public AudioClip level5Cry1;
     public AudioClip level5Cry2;
     public AudioClip level5Cry3;
@@ -79,56 +64,40 @@ public class tatrumchildbehavior : MonoBehaviour
     public AudioClip level1Dontleaveme;
 
     public AudioClip spanish_level1Dontleaveme;
-
-    /*public AudioClip Butwhy;
-    public AudioClip Ireallywanttoplay;
-    public AudioClip AllIwanttodoisplaywiththetoys;
-    public AudioClip Youaretheworst;
-    public AudioClip Idontwanttobehereanymore;
-    public AudioClip IfIcantplayIamleaving;
-    public AudioClip Youbettergivemethetoysorelse;
-
-    public AudioClip spanish_butwhy;
-    public AudioClip spanish_ireallywanttoplay;
-    public AudioClip spanish_allIwanttodoisplaywiththetoys;
-    public AudioClip spanish_youaretheworst;
-    public AudioClip spanish_idontwanttobehereanymore;
-    public AudioClip spanish_ificantplayiamleaving;
-    public AudioClip spanish_youbettergivethetoyorelse;*/
-
     #endregion
 
-    private bool isWalkingOrRunning;
-    public static bool childIsTalking = false;
-    private float breakTimer;
-    public static bool simluationOnGoing;
-    public static bool negativeStatementSelected;
+    #region static varibles
+    public static bool childIsTalking = false; // used in other scripts to check if the child is showing bad behaviors
+    public static bool simluationOnGoing; //used in other scripts to check if the simulation is ongoing
+    public static bool negativeStatementSelected;  //used in other scripts. when a negative statement is selected, this flag is true and
+                                                   // the child keep showing bad behaviors with out calm break
+    public static bool isPlayingXylophone; //used in other scripts to check if the child is playing xylophone
+    public static bool approachBehavior; //if the child just walk closer to the room. this flag is set to true and the praise for approach button showed
+    #endregion
+
+    #region variables related to walk and where to walk
     public List<GameObject> spots;
     public GameObject specialSpot;
     private GameObject nextSpot;
     private GameObject prevSpot;
-    private GameObject npc_female;
+    private bool isWalkingOrRunning;
     private bool walkedOrRan;
     private bool isIdle;
-    public static bool approachBehavior;
-    private bool adultNeedToLookAtNPC;
-    private bool adultNeedToLookAtChild;
-    public XylophoneManager xylophoneManager;
-    public static bool isPlayingXylophone;
-    public NPCAnimationController npcAnimationController;
+    #endregion
+
+    public XylophoneManager xylophoneManager; // play the music
 
     //private TextMeshProUGUI DebugLabel;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        //rigidBody = GetComponent<Rigidbody>();
         userPrefs = GameObject.Find("UserPrefs").GetComponent<UserPrefs>();
         playerObject = GameObject.Find("PlayerObject");
         playerOriginalPosition = GameObject.Find("PlayerOriginPosition");
-        npc_female = GameObject.Find("NPC_Female");
-        //npc_animator = npc_female.GetComponent<Animator>();
+        teacher = GameObject.Find("TeacherDoctor");
         //DebugLabel = GameObject.Find("DebugLabel").GetComponent<TextMeshProUGUI>();
 
         tantrumLevel = 0;
@@ -136,6 +105,13 @@ public class tatrumchildbehavior : MonoBehaviour
         nextSpot = spots[0];
         isWalkingOrRunning = false;
         walkedOrRan = false;
+        simluationOnGoing = false;
+        isIdle = true;
+        playerNeedToLookAtChild = false;
+        playerNeedToLookAtTeacher = false;
+        isPlayingXylophone = false;
+        approachBehavior = false;
+
         if (userPrefs.IsEnglishSpeaker())
             PlayAudioClip(startVoice);
         else
@@ -143,34 +119,23 @@ public class tatrumchildbehavior : MonoBehaviour
 
         StartCoroutine(setMoveatStartVoice());
         StartCoroutine(setStartTantrum());
-        simluationOnGoing = false;
-        //gameLost = false;
-        isIdle = true;
-        adultNeedToLookAtChild = false;
-        adultNeedToLookAtNPC = false;
-        isPlayingXylophone = false;
-        //npcIsIdle = true;
-        //npcHappy = true;
-    }
-
-    private void Awake()
-    {
-        approachBehavior = false;
+        
     }
 
 
     void Update()
     {
 
-        //DebugLabel.text = " move is : " + move + " Anxiety level is: " + tantrumLevel;
-        if (adultNeedToLookAtChild)
-            adultLookAtChild();
-        else if (adultNeedToLookAtNPC)
-            adultLookAtFemaleNPC();
+        //DebugLabel.text = "";
+
+        if (playerNeedToLookAtChild)
+            playerLookAtChild();
+        else if (playerNeedToLookAtTeacher)
+            playerLookAtTeacher();
 
         tantrumLevel = Mathf.CeilToInt(childState.tantrumLevel / 20);
 
-        //if the child stop saying. start counting the time
+        //if the child stop crying. start counting the time. find nextSpot and add walk to move if possible
         if (!audioSource.isPlaying) // && !negativeStatementSelected
         {
             breakTimer += Time.deltaTime;
@@ -188,7 +153,6 @@ public class tatrumchildbehavior : MonoBehaviour
                 else if (Vector3.Distance(nextSpot.transform.position, spots[0].transform.position) < Vector3.Distance(prevSpot.transform.position, spots[0].transform.position))
                 {
                     StartCoroutine(addWalkOrRuntoMove("run")); // run to the door
-                    //approachBehavior = false;
                 }
             }
             else if (tantrumLevel == 0 && !isWalkingOrRunning) {
@@ -199,18 +163,17 @@ public class tatrumchildbehavior : MonoBehaviour
 
         childIsTalking = audioSource.isPlaying; // this is a static variable to use in other script
 
-        // if the time reach 9 seconds. the child talk again
+        // if the time reach 9 seconds or if negative statments just got selected, the child got emotional again, teacher show sad behavior
         if (!audioSource.isPlaying && breakTimer > 9f && !isWalkingOrRunning || !audioSource.isPlaying && negativeStatementSelected && !isWalkingOrRunning)
         {
-            
             UpdateMovement();
             walkedOrRan = false; // reset walkedOrRan
             breakTimer = 0f; //reset
             isIdle = false;
-            npcAnimationController.setMove("sad");
+            teacherAnimController.setMove("sad");
             negativeStatementSelected = false; // reset
-            //approachBehavior = false;
         }
+        //if the child is calm then choose a specific calm behaviors. change the behavior of the teacher as well
         else if (!audioSource.isPlaying && !isWalkingOrRunning)
         {
             if (!isIdle)
@@ -233,16 +196,17 @@ public class tatrumchildbehavior : MonoBehaviour
                         break;
 
                 }
-                if (npcAnimationController.getMove() != "walk")
-                    npcAnimationController.setMove("idleThumbsUp");
+                if (teacherAnimController.getMove() != "walk")
+                    teacherAnimController.setMove("idleThumbsUp");
                 else {
-                    npcAnimationController.setMove("idleThumbsUp");
-                    StartCoroutine(resumeNPCWalking());
+                    teacherAnimController.setMove("idleThumbsUp");
+                    StartCoroutine(resumeTeacherWalking());
                 }
                 isIdle = true;
             }
         }
 
+        //if the child is calm at 0 anxiety level and is at the table then play the xylophone
         if (!audioSource.isPlaying && childState.tantrumLevel == 0 && transform.position == spots[4].transform.position && !isPlayingXylophone)
         {
             // Direction from the child to the special spot
@@ -266,6 +230,7 @@ public class tatrumchildbehavior : MonoBehaviour
             }
         }
 
+        //play animation depend on the move
         if (move != "") {
             if (move == ("SadIdle") && !animator.IsInTransition(0))
             {
@@ -345,19 +310,16 @@ public class tatrumchildbehavior : MonoBehaviour
                 animator.CrossFade("telloff", 0.05f);
             }
 
-            //
-            else if (move == ("shorttalk") && !animator.IsInTransition(0))
+            //unused
+            /*else if (move == ("shorttalk") && !animator.IsInTransition(0))
             {
                 //animator.Play("shorttalk");
                 animator.CrossFade("shorttalk", 0.05f);
             }
-
-            //
             else if (move == ("firstTalk") && !animator.IsInTransition(0))
             {
                 animator.CrossFade("firstTalk", 0.05f);
-            }
-            //animator.Play("firstTalk");
+            }*/
 
             else if (move == "sadwalk")
             {
@@ -393,6 +355,7 @@ public class tatrumchildbehavior : MonoBehaviour
         
     }
 
+    // assign a walking or running behavior to move, change the behavior of the teacher
     IEnumerator addWalkOrRuntoMove(string type)
     {
 
@@ -403,12 +366,13 @@ public class tatrumchildbehavior : MonoBehaviour
 
         if (type == "walk")
         {
-            if (npcAnimationController.getMove() != "walk")
-                npcAnimationController.setMove("happy");
+            if (teacherAnimController.getMove() != "walk")
+                teacherAnimController.setMove("happy");
             else
             {
-                npcAnimationController.setMove("happy");
-                StartCoroutine(resumeNPCWalking());
+                teacherAnimController.setMove("happy");
+                StartCoroutine(resumeTeacherWalking()); // in case the kid start walking while the teacher is walking,
+                                                    // the teacher will stop and show happy for a moment then continue finish walking
             }
             approachBehavior = true;
             move = "sadwalk";
@@ -417,11 +381,11 @@ public class tatrumchildbehavior : MonoBehaviour
         {
             move = "sadrun";
             approachBehavior = false;
-            npcAnimationController.setMove("sad");
+            teacherAnimController.setMove("sad");
         }
         else if (type == "walkBackward")
         {
-            npcAnimationController.setMove("happy");
+            teacherAnimController.setMove("happy");
             approachBehavior = true;
             move = "walkBackward";
         }
@@ -429,6 +393,7 @@ public class tatrumchildbehavior : MonoBehaviour
             
     }
 
+    //change the position of the child to appear like walking or running
     void walkOrRun(string type)
     {
         Vector3 direction = nextSpot.transform.position - transform.position;
@@ -452,6 +417,7 @@ public class tatrumchildbehavior : MonoBehaviour
         }
     }
 
+    // find the nextSpot to walk or run to
     void findNextSpot() {
         prevSpot = nextSpot;
         float currentTantrumLevel = childState.tantrumLevel;
@@ -467,7 +433,7 @@ public class tatrumchildbehavior : MonoBehaviour
             nextSpot = spots[4];
     }
 
-
+    // update an emotional behavior depend on anxiety level
     void UpdateMovement()
     {
         //Debug.Log("################update Movement called");
@@ -650,19 +616,19 @@ public class tatrumchildbehavior : MonoBehaviour
         tantrumLevel = Mathf.CeilToInt(childState.tantrumLevel / 20);
         UpdateMovement(); // first tantrum
         simluationOnGoing = true;
-        adultNeedToLookAtChild = false;
+        playerNeedToLookAtChild = false;
         isIdle = false;
-        npcAnimationController.setMove("sad");
+        teacherAnimController.setMove("sad");
     }
 
-    void adultLookAtFemaleNPC() {
+    void playerLookAtTeacher() {
         //Debug.Log("adult look at female NPC ###########");
-        Quaternion lookRotation = Quaternion.LookRotation((npc_female.transform.position - playerObject.transform.position).normalized);
+        Quaternion lookRotation = Quaternion.LookRotation((teacher.transform.position - playerObject.transform.position).normalized);
         playerObject.transform.rotation = Quaternion.Slerp(playerObject.transform.rotation, lookRotation, Time.deltaTime);
 
     }
 
-    void adultLookAtChild() {
+    void playerLookAtChild() {
         //Debug.Log("adult look at child ###########");
         Quaternion lookRotation = Quaternion.LookRotation((transform.position - playerObject.transform.position).normalized);
         playerObject.transform.rotation = Quaternion.Slerp(playerObject.transform.rotation, lookRotation, Time.deltaTime);
@@ -674,50 +640,40 @@ public class tatrumchildbehavior : MonoBehaviour
 
         if (userPrefs.IsEnglishSpeaker())
         {
-            //npc_animator.Play("idle2");
-            npcAnimationController.setMove("idle2");
-            adultNeedToLookAtChild = true;
+            teacherAnimController.setMove("idle2");
+            playerNeedToLookAtChild = true;
             move = "SadIdle";  // I dont want you to leave me ...
             yield return new WaitForSeconds(8f); 
             move = "sad2";  // it is time for drop off ...
             yield return new WaitForSeconds(2f);
-            adultNeedToLookAtChild = false;
-            adultNeedToLookAtNPC = true;
-            //if (!npc_animator.IsInTransition(0))
-            //    npc_animator.CrossFade("idle", 0.5f);
-            npcAnimationController.setMove("idle");
+            playerNeedToLookAtChild = false;
+            playerNeedToLookAtTeacher = true;
+            teacherAnimController.setMove("idle");
             move = "SadIdle"; // we are practicing ...
             yield return new WaitForSeconds(11f);
-            adultNeedToLookAtNPC = false;
-            adultNeedToLookAtChild = true;
-            //if (!npc_animator.IsInTransition(0))
-            //    npc_animator.CrossFade("idle2", 0.5f);
-            npcAnimationController.setMove("idle2");
+            playerNeedToLookAtTeacher = false;
+            playerNeedToLookAtChild = true;
+            teacherAnimController.setMove("idle2");
             move ="afraidTalk"; // can you stay with me ... 
             yield return new WaitForSeconds(3.5f); 
             move =  "afraid";
         }
         else
         {
-            //npc_animator.Play("idle2");
-            npcAnimationController.setMove("idle2");
-            adultNeedToLookAtChild = true;
+            teacherAnimController.setMove("idle2");
+            playerNeedToLookAtChild = true;
             move = "SadIdle";  // I dont want you to leave me ...
             yield return new WaitForSeconds(3f);
             move = "sad2";  // it is time for drop off ...
             yield return new WaitForSeconds(4f);
-            adultNeedToLookAtChild = false;
-            adultNeedToLookAtNPC = true;
-            //if (!npc_animator.IsInTransition(0))
-            //    npc_animator.CrossFade("idle", 0.5f);
-            npcAnimationController.setMove("idle");
+            playerNeedToLookAtChild = false;
+            playerNeedToLookAtTeacher = true;
+            teacherAnimController.setMove("idle");
             move = "SadIdle"; // we are practicing ...
             yield return new WaitForSeconds(12.4f);
-            adultNeedToLookAtNPC = false;
-            adultNeedToLookAtChild = true;
-            //if (!npc_animator.IsInTransition(0))
-            //    npc_animator.CrossFade("idle2", 0.5f);
-            npcAnimationController.setMove("idle2");
+            playerNeedToLookAtTeacher = false;
+            playerNeedToLookAtChild = true;
+            teacherAnimController.setMove("idle2");
             move = "afraidTalk"; // can you stay with me ... 
             yield return new WaitForSeconds(2.3f);
             move = "afraid";
@@ -730,8 +686,8 @@ public class tatrumchildbehavior : MonoBehaviour
         move = nextMove;
     }
 
-    IEnumerator resumeNPCWalking() {
+    IEnumerator resumeTeacherWalking() {
         yield return new WaitForSeconds(1.5f);
-        npcAnimationController.setMove("walk");
+        teacherAnimController.setMove("walk");
     }
 }

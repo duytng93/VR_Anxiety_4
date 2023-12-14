@@ -1,6 +1,5 @@
-using System.Collections;
+
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +9,6 @@ public class button5behavior : MonoBehaviour
 
     public Button yourButton;
     public AudioSource audioSource;
-    public AudioClip StartVoice;
-    public AudioClip StartVoiceSpanish;
-    //public AudioClip Youknowyoucannotplayrightnow;
-    //public AudioClip Iwishyouwoulduseyourbigkidvoice;
-    //public AudioClip Ohyouaregoingtocrynow;
-    //public AudioClip Ineedyoutoquietdown;
     public AudioClip Youneedtoquietdownrightnow;
     public AudioClip Youneedtocalmyourselfdownnow;
     public AudioClip itsreallytimetogonow;
@@ -23,10 +16,6 @@ public class button5behavior : MonoBehaviour
     public AudioClip youaremakingashow;
     public AudioClip youaremakingeveryonelate;
 
-    //public AudioClip Sabesquenopuedesjugarahoramismo;
-    //public AudioClip Ojaláusarastuvozdeniñograndej;
-    //public AudioClip Vasallorarahora;
-    //public AudioClip Necesitoquetecalmes;
     public AudioClip Tienesquecalmarteahoramismo;
     public AudioClip Necesitascalmarteahora;
     public AudioClip spanish_itsreallytimetogonow;
@@ -37,12 +26,8 @@ public class button5behavior : MonoBehaviour
     private ChildState childState;
     public TextMeshProUGUI tmpText;
 
-    private float tantrumLevelInV2;
     private int tantrumLevel;
     private float amount;
-    private bool atStart;
-    private float introTimer;
-    private float introLength;
     void Start()
     {
         tmpText = yourButton.GetComponentInChildren<TextMeshProUGUI>();
@@ -69,35 +54,28 @@ public class button5behavior : MonoBehaviour
                 break;
         }
 
-        tantrumLevelInV2 = childState.tantrumLevel;
-        tantrumLevel = Mathf.CeilToInt(tantrumLevelInV2 / 20);
+        
+        tantrumLevel = Mathf.CeilToInt(childState.tantrumLevel / 20);
         UpdateTextAndAudioClip(tantrumLevel,false); // Initial setup of text and audio clip
 
         yourButton.onClick.AddListener(OnButtonClick);
-        introTimer = 0f;
-        introLength = userPrefs.IsEnglishSpeaker() ? StartVoice.length : StartVoiceSpanish.length;
-        atStart = true;
 
     }
 
     void Update()
     {
-        if (atStart && tatrumchildbehavior.childIsTalking)
-            introTimer += Time.deltaTime;
-        tantrumLevelInV2 = childState.tantrumLevel;
-        tantrumLevel = Mathf.CeilToInt(tantrumLevelInV2 / 20);
         
-        if (atStart && introTimer < introLength || button1behavior.adultIsSpeaking || !tatrumchildbehavior.simluationOnGoing || tantrumLevel == 0)  // if we at start the child is saying the greeting -> disable the button
-        {                                                                        // if the player've just clicked this button and the audio is play -> disable button so they can't click it again
+        tantrumLevel = Mathf.CeilToInt(childState.tantrumLevel / 20);
+        
+        if (button1behavior.adultIsSpeaking || !tatrumchildbehavior.simluationOnGoing || tantrumLevel == 0)  // if player is talking or the simulation is not going yet. disable the button but still update the text
+        {                                                                       
             yourButton.interactable = false;
             UpdateTextAndAudioClip(tantrumLevel, true);
-            //tmpText.text = "";
         }
         else if(!button1behavior.adultIsSpeaking)
-        { // let the parent finish talking first, otherwise their audio is cut off during tantrum level change
+        { //if the player finish talking then enable the button
             UpdateTextAndAudioClip(tantrumLevel,false);
             yourButton.interactable = true;
-            atStart = false;
         }
     }
 
