@@ -69,7 +69,7 @@ public class tatrumchildbehavior : MonoBehaviour
     #region static varibles
     public static bool childIsTalking = false; // used in other scripts to check if the child is showing bad behaviors
     public static bool simluationOnGoing; //used in other scripts to check if the simulation is ongoing
-    public static bool negativeStatementSelected;  //used in other scripts. when a negative statement is selected, this flag is true and
+    public static bool negativeStatementSelected;  //used in other scripts. when a negative statement is selected, this flag will become true and
                                                    // the child keep showing bad behaviors with out calm break
     public static bool isPlayingXylophone; //used in other scripts to check if the child is playing xylophone
     public static bool approachBehavior; //if the child just walk closer to the room. this flag is set to true and the praise for approach button showed
