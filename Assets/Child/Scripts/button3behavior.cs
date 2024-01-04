@@ -1,4 +1,5 @@
 
+using System.Xml;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -160,7 +161,7 @@ public class button3behavior : MonoBehaviour
                 amount = -5.0f;
                 break; ;
             case 5:
-                tmpText.text = userPrefs.IsEnglishSpeaker() ? "I am taking a deep breath and going to name 5 things I see in this room to help me stay calm and present" : "Estoy respirando profundamente y voy a nombrar 5 cosas que veo en esta habitación para ayudarme a mantener la calma y estar presente";
+                tmpText.text = userPrefs.IsEnglishSpeaker() ? "I am taking a deep breath and going to name five things I see in this room to help me stay calm and present" : "Estoy respirando profundamente y voy a nombrar 5 cosas que veo en esta habitación para ayudarme a mantener la calma y estar presente";
                 if (!textOnly)
                     audioSource.clip = userPrefs.IsEnglishSpeaker() ? Iamtakingadeepbreathandgoingtoname5things : spanish_Iamtakingadeepbreathandgoingtoname5things;
                 amount = -5.0f;
@@ -171,6 +172,11 @@ public class button3behavior : MonoBehaviour
                 amount = 0.0f;
                 break;
         }
+
+        if (tantrumLevel == 5)
+            tmpText.fontSize = 14;
+        else tmpText.fontSize = 16;
+
     }
 
     void OnButtonClick()

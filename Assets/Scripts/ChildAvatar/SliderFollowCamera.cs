@@ -42,7 +42,7 @@ public class SliderFollowCamera : MonoBehaviour
             foreach (GameObject canvas in attention_tantrum_Canvas)
             {
                 //make the meters canvas follow the camera
-                canvas.transform.position = mainCameraTrans.position + mainCameraTrans.rotation * new Vector3(-0.8f, 0, 2) + new Vector3(0, 0.2f, 0.3f);
+                canvas.transform.position = mainCameraTrans.position + mainCameraTrans.rotation * new Vector3(-0.9f, 0, 2) + new Vector3(0, 0.2f, 0.3f);
                 canvas.transform.rotation = Quaternion.LookRotation(canvas.transform.position - mainCameraTrans.position + new Vector3(0,-0.3f,0));
 
                 // check if canvas hit the floor. if so freeze it

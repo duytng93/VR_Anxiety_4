@@ -1536,7 +1536,7 @@ Transform:
   m_GameObject: {fileID: 93668458}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.329, y: 0, z: 0.159}
+  m_LocalPosition: {x: -0.329, y: 0.053, z: 0.159}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18024,7 +18024,7 @@ Transform:
   m_GameObject: {fileID: 797263384}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.64, y: 0, z: -1.082}
+  m_LocalPosition: {x: -1.64, y: 0.055, z: -1.082}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22715,8 +22715,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3199508834110206841, guid: fa5ef3b56cfeb4f4ba855cdf2610a578, type: 3}
       propertyPath: m_text
-      value: I am taking a deep breath and going to name 5 things I see in this room
-        to help me stay calm and present
+      value: I am taking a deep breath and going to name five things I see in this
+        room to help me stay calm and present
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199508834110206841, guid: fa5ef3b56cfeb4f4ba855cdf2610a578, type: 3}
+      propertyPath: m_fontSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199508834110206841, guid: fa5ef3b56cfeb4f4ba855cdf2610a578, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6150670977401591343, guid: fa5ef3b56cfeb4f4ba855cdf2610a578, type: 3}
       propertyPath: m_AnchorMax.y
@@ -25974,7 +25982,7 @@ Transform:
   m_GameObject: {fileID: 1190150262}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.592, y: 0, z: 1.002}
+  m_LocalPosition: {x: 0.592, y: 0.034, z: 1.002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29312,7 +29320,7 @@ Transform:
   m_GameObject: {fileID: 1354975872}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99965084, z: -0, w: 0.026424885}
-  m_LocalPosition: {x: -0.13, y: -0.115, z: 1.19}
+  m_LocalPosition: {x: -0.13, y: 0.036, z: 1.19}
   m_LocalScale: {x: 0.59999996, y: 0.59999996, z: 0.59999996}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30023,7 +30031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4013194009950688115, guid: ac6b4d43744179f468ce41057b4e2d71, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.384
+      value: -1.342
       objectReference: {fileID: 0}
     - target: {fileID: 4013194009950688115, guid: ac6b4d43744179f468ce41057b4e2d71, type: 3}
       propertyPath: m_LocalPosition.z
